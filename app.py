@@ -1,3 +1,4 @@
+
 from flask import Flask, Response
 import requests
 from bs4 import BeautifulSoup
@@ -9,7 +10,6 @@ def scrape_santrihub():
     url = "https://santrihub.id/info-beasiswa/"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
-
     content = soup.find("div", {"data-id": "dc5a89e"})
 
     if content:
@@ -18,6 +18,13 @@ def scrape_santrihub():
         <head>
             <meta charset="UTF-8">
             <title>SantriHub Beasiswa</title>
+            <style>
+                body {{
+                    font-family: sans-serif;
+                    margin: 0;
+                    padding: 0;
+                }}
+            </style>
         </head>
         <body>
             {content}
@@ -29,4 +36,4 @@ def scrape_santrihub():
         return "Konten tidak ditemukan", 404
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
